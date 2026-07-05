@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaBell, FaMagnifyingGlass } from "react-icons/fa6";
 
 import { navItems } from "@/components/layout/sidebar";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
 
 function Navbar() {
@@ -20,6 +21,7 @@ function Navbar() {
           <Button variant="ghost" size="icon" aria-label="Notifications">
             <FaBell />
           </Button>
+          <ThemeToggle />
           <Link
             href="/settings"
             className="hidden rounded-md border border-border px-3 py-2 text-sm font-medium hover:bg-muted sm:block"

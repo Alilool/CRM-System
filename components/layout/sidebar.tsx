@@ -27,7 +27,7 @@ function Sidebar() {
   return (
     <aside className="hidden w-64 border-r border-sidebar-border bg-sidebar px-4 py-5 text-sidebar-foreground md:block">
       <Link href="/dashboard" className="mb-8 flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-sidebar-primary text-sm font-semibold text-sidebar-primary-foreground shadow-sm">
+        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-sidebar-primary text-sm font-semibold text-[#fafcfe] shadow-sm">
           C
         </div>
         <div>
