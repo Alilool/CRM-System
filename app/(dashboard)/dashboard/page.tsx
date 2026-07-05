@@ -1,13 +1,33 @@
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { activities } from "@/data/activities";
+import { salesChartBars, summaryCards } from "@/data/dashboard";
+import { tasks } from "@/data/tasks";
+import type { TaskPriority, TaskStatus } from "@/types/task";
 
-const summaryCards = [
-  { title: "Total Customers", value: "1,248", change: "+12% this month" },
-  { title: "Active Deals", value: "32", change: "8 closing soon" },
-  { title: "Revenue", value: "$84,520", change: "+18% vs last month" },
-  { title: "Tasks", value: "18", change: "5 due today" },
-];
+function getPriorityVariant(priority: TaskPriority) {
+  if (priority === "High") {
+    return "danger";
+  }
 
-const chartBars = ["45%", "70%", "52%", "82%", "64%", "88%", "76%"];
+  if (priority === "Medium") {
+    return "warning";
+  }
+
+  return "secondary";
+}
+
+function getStatusVariant(status: TaskStatus) {
+  if (status === "Done") {
+    return "success";
+  }
+
+  if (status === "In Progress") {
+    return "info";
+  }
+
+  return "secondary";
+}
 
 export default function DashboardPage() {
   return (
@@ -47,21 +67,33 @@ export default function DashboardPage() {
             <CardTitle>Sales Chart</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex h-64 items-end gap-3 rounded-md border border-border bg-muted/40 p-4">
-              {chartBars.map((height, index) => (
-                <div
-                  key={height + index}
-                  className="flex flex-1 flex-col items-center gap-2"
-                >
+            <div className="flex h-64 gap-3 rounded-md border border-border bg-muted/40 p-4">
+              <div className="flex h-52 flex-col justify-between text-xs text-muted-foreground">
+                <span>$100k</span>
+                <span>$75k</span>
+                <span>$50k</span>
+                <span>$25k</span>
+                <span>$0</span>
+              </div>
+
+              <div className="flex flex-1 gap-3">
+                {salesChartBars.map((bar) => (
                   <div
-                    className="w-full rounded-t-md bg-primary/80"
-                    style={{ height }}
-                  />
-                  <span className="text-xs text-muted-foreground">
-                    W{index + 1}
-                  </span>
-                </div>
-              ))}
+                    key={bar.label}
+                    className="flex flex-1 flex-col items-center justify-end gap-2"
+                  >
+                    <div className="flex h-52 w-full items-end border-b border-border">
+                      <div
+                        className="w-full rounded-t-md bg-primary/80"
+                        style={{ height: bar.height }}
+                      />
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {bar.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -72,13 +104,53 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3 text-sm">
-              <p className="rounded-md bg-muted/60 p-3">Follow up with Acme Inc.</p>
-              <p className="rounded-md bg-muted/60 p-3">Prepare proposal for Globex</p>
-              <p className="rounded-md bg-muted/60 p-3">Review monthly pipeline</p>
+              {tasks.slice(0, 3).map((task) => (
+                <div key={task.id} className="rounded-md bg-muted/60 p-3">
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <p>{task.title}</p>
+                    <Badge variant={getPriorityVariant(task.priority)}>
+                      {task.priority}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                    <span>Due {task.dueDate}</span>
+                    <Badge variant={getStatusVariant(task.status)}>
+                      {task.status}
+                    </Badge>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       </section>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Recent Activities</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 md:grid-cols-2">
+            {activities.map((activity) => (
+              <div
+                key={activity.id}
+                className="rounded-md border border-border bg-muted/40 p-4"
+              >
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <p className="font-medium">{activity.title}</p>
+                  <Badge variant="info">{activity.type}</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {activity.description}
+                </p>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {activity.date}
+                </p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
