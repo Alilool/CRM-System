@@ -230,7 +230,7 @@ function createGeneratedCompanies(customersList: Customer[]) {
   );
 }
 
-const generatedCustomers = createGeneratedCustomers(54);
+const generatedCustomers = createGeneratedCustomers(150);
 const generatedCompanyProfiles = createGeneratedCompanies(generatedCustomers);
 
 export const customers: Customer[] = [

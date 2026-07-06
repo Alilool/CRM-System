@@ -1,10 +1,51 @@
 import type { ChartBar, DashboardSummaryCard } from "@/types/dashboard";
+import { customers } from "@/data/customers";
+import { deals } from "@/data/deals";
+import { tasks } from "@/data/tasks";
+
+const activeCustomers = customers.filter(
+  (customer) => customer.status === "Active",
+);
+
+const activeDeals = deals.filter(
+  (deal) => deal.stage !== "Won" && deal.stage !== "Lost",
+);
+
+const wonDeals = deals.filter((deal) => deal.stage === "Won");
+
+const finishedTasks = tasks.filter((task) => task.status === "Done");
+
+const revenue = wonDeals.reduce((total, deal) => total + deal.value, 0);
+
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
 
 export const summaryCards: DashboardSummaryCard[] = [
-  { title: "Total Customers", value: "1,248", change: "+12% this month" },
-  { title: "Active Deals", value: "32", change: "8 closing soon" },
-  { title: "Revenue", value: "$84,520", change: "+18% vs last month" },
-  { title: "Tasks", value: "18", change: "5 due today" },
+  {
+    title: "Total Customers",
+    value: customers.length.toString(),
+    change: `${activeCustomers.length} Active customers`,
+  },
+  {
+    title: "Active Deals",
+    value: activeDeals.length.toString(),
+    change: `${wonDeals.length} Won deals`,
+  },
+  {
+    title: "Revenue",
+    value: formatCurrency(revenue),
+    change: "From won deals",
+  },
+  {
+    title: "Tasks",
+    value: tasks.length.toString(),
+    change: `${finishedTasks.length} Completed tasks`,
+  },
 ];
 
 export const salesChartBars: ChartBar[] = [

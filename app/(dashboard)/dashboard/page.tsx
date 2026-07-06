@@ -104,22 +104,25 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3 text-sm">
-              {tasks.slice(0, 3).map((task) => (
-                <div key={task.id} className="rounded-md bg-muted/60 p-3">
-                  <div className="mb-2 flex items-center justify-between gap-2">
-                    <p>{task.title}</p>
-                    <Badge variant={getPriorityVariant(task.priority)}>
-                      {task.priority}
-                    </Badge>
+              {tasks
+                .filter((task) => task.status !== "Done")
+                .slice(0, 6)
+                .map((task) => (
+                  <div key={task.id} className="rounded-md bg-muted/60 p-3">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <p>{task.title}</p>
+                      <Badge variant={getPriorityVariant(task.priority)}>
+                        {task.priority}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                      <span>Due {task.dueDate}</span>
+                      <Badge variant={getStatusVariant(task.status)}>
+                        {task.status}
+                      </Badge>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                    <span>Due {task.dueDate}</span>
-                    <Badge variant={getStatusVariant(task.status)}>
-                      {task.status}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           </CardContent>
         </Card>
