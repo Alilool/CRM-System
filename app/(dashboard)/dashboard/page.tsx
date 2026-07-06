@@ -62,13 +62,13 @@ export default function DashboardPage() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
+        <Card className="flex h-full flex-col lg:col-span-2">
           <CardHeader>
             <CardTitle>Sales Chart</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex h-64 gap-3 rounded-md border border-border bg-muted/40 p-4">
-              <div className="flex h-52 flex-col justify-between text-xs text-muted-foreground">
+          <CardContent className="flex flex-1 flex-col">
+            <div className="flex min-h-64 flex-1 gap-3 rounded-md border border-border bg-muted/40 p-4">
+              <div className="flex flex-col justify-between pb-6 text-xs text-muted-foreground">
                 <span>$100k</span>
                 <span>$75k</span>
                 <span>$50k</span>
@@ -82,7 +82,7 @@ export default function DashboardPage() {
                     key={bar.label}
                     className="flex flex-1 flex-col items-center justify-end gap-2"
                   >
-                    <div className="flex h-52 w-full items-end border-b border-border">
+                    <div className="flex min-h-52 flex-1 w-full items-end border-b border-border">
                       <div
                         className="w-full rounded-t-md bg-primary/80"
                         style={{ height: bar.height }}
@@ -106,7 +106,7 @@ export default function DashboardPage() {
             <div className="space-y-3 text-sm">
               {tasks
                 .filter((task) => task.status !== "Done")
-                .slice(0, 6)
+                .slice(0, 5)
                 .map((task) => (
                   <div key={task.id} className="rounded-md bg-muted/60 p-3">
                     <div className="mb-2 flex items-center justify-between gap-2">
