@@ -54,7 +54,8 @@ export const notes: Note[] = [
     id: "note-003",
     customerId: "cus-005",
     author: "Jamie Lee",
-    content: "CloudNova wants the renewal summary before the next finance review.",
+    content:
+      "CloudNova wants the renewal summary before the next finance review.",
     date: "2026-06-27",
   },
 ];

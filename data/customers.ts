@@ -1,6 +1,11 @@
-import type { Company, Customer } from "@/types/customer";
+import type {
+  Company,
+  Customer,
+  CustomerStatus,
+  EmployeeRange,
+} from "@/types/customer";
 
-export const customers: Customer[] = [
+const featuredCustomers: Customer[] = [
   {
     id: "cus-001",
     name: "Sarah Johnson",
@@ -69,7 +74,7 @@ export const customers: Customer[] = [
   },
 ];
 
-export const companies: Company[] = [
+const featuredCompanies: Company[] = [
   {
     customerId: "cus-001",
     name: "Acme Inc.",
@@ -112,4 +117,128 @@ export const companies: Company[] = [
     website: "https://urbangrid.example",
     employees: "51-200",
   },
+];
+
+const firstNames = [
+  "Ava",
+  "Ethan",
+  "Lina",
+  "Noah",
+  "Sofia",
+  "Adam",
+  "Zara",
+  "Liam",
+  "Nadia",
+  "Ryan",
+];
+
+const lastNames = [
+  "Reed",
+  "Bennett",
+  "Stone",
+  "Miller",
+  "Wilson",
+  "Parker",
+  "Brooks",
+  "Foster",
+  "Hayes",
+  "Cooper",
+];
+
+const generatedCompanies = [
+  "BluePeak",
+  "Silverline",
+  "TechHive",
+  "MarketEdge",
+  "GreenWorks",
+  "NobleStack",
+  "PrimeWave",
+  "ClearPoint",
+];
+
+const jobTitles = [
+  "Sales Manager",
+  "Marketing Lead",
+  "Account Executive",
+  "Customer Success Manager",
+  "Project Coordinator",
+  "Product Manager",
+];
+
+const locations = [
+  "New York, USA",
+  "Austin, USA",
+  "Seattle, USA",
+  "Chicago, USA",
+  "Denver, USA",
+  "Boston, USA",
+];
+
+const industries = [
+  "Software",
+  "Consulting",
+  "Finance",
+  "Healthcare",
+  "Education",
+  "Retail",
+];
+
+const statuses: CustomerStatus[] = ["Active", "Lead", "Inactive"];
+const employeeRanges: EmployeeRange[] = [
+  "1-10",
+  "11-50",
+  "51-200",
+  "201-500",
+  "501-1000",
+  "1000+",
+];
+
+function pickItem<T>(items: T[], index: number) {
+  return items[index % items.length];
+}
+
+function createGeneratedCustomers(count: number) {
+  return Array.from({ length: count }, (_, index): Customer => {
+    const customerNumber = index + featuredCustomers.length + 1;
+    const firstName = pickItem(firstNames, index);
+    const lastName = pickItem(lastNames, index + 3);
+    const company = pickItem(generatedCompanies, index);
+
+    return {
+      id: `cus-${String(customerNumber).padStart(3, "0")}`,
+      name: `${firstName} ${lastName}`,
+      company,
+      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.toLowerCase()}.example`,
+      phone: `+1 555 ${String(200 + index).padStart(3, "0")} ${String(1000 + index * 37).slice(0, 4)}`,
+      status: pickItem(statuses, index),
+      jobTitle: pickItem(jobTitles, index),
+      location: pickItem(locations, index),
+      joinedDate: `2026-${String((index % 6) + 1).padStart(2, "0")}-${String((index % 25) + 1).padStart(2, "0")}`,
+    };
+  });
+}
+
+function createGeneratedCompanies(customersList: Customer[]) {
+  return customersList.map(
+    (customer, index): Company => ({
+      customerId: customer.id,
+      name: customer.company,
+      industry: pickItem(industries, index),
+      website: `https://${customer.company.toLowerCase()}.example`,
+      employees: pickItem(employeeRanges, index),
+    }),
+  );
+}
+
+const generatedCustomers = createGeneratedCustomers(54);
+const generatedCompanyProfiles = createGeneratedCompanies(generatedCustomers);
+
+export const customers: Customer[] = [
+  ...featuredCustomers,
+  ...generatedCustomers,
+];
+
+export const companies: Company[] = [
+  ...featuredCompanies,
+  ...generatedCompanyProfiles,
 ];

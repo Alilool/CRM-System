@@ -1,7 +1,13 @@
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -41,6 +47,9 @@ export default function CustomersPage() {
       <Card>
         <CardHeader>
           <CardTitle>Customer List</CardTitle>
+          <CardDescription>
+            {customers.length} Customers are currently tracked.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 sm:hidden">
