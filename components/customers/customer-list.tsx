@@ -28,8 +28,15 @@ type CustomerListProps = {
 };
 
 type StatusFilter = "All" | CustomerStatus;
+type SortField = "name" | "company" | "status";
+type SortDirection = "asc" | "desc";
 
 const statusOptions: StatusFilter[] = ["All", "Active", "Lead", "Inactive"];
+const sortOptions: { label: string; value: SortField }[] = [
+  { label: "Name", value: "name" },
+  { label: "Company", value: "company" },
+  { label: "Status", value: "status" },
+];
 
 function getStatusVariant(status: CustomerStatus) {
   if (status === "Active") {
@@ -53,9 +60,32 @@ function customerMatchesSearch(customer: Customer, searchTerm: string) {
   );
 }
 
+function sortCustomers(
+  customersToSort: Customer[],
+  sortField: SortField,
+  sortDirection: SortDirection,
+) {
+  return [...customersToSort].sort((firstCustomer, secondCustomer) => {
+    const firstValue = firstCustomer[sortField].toLowerCase();
+    const secondValue = secondCustomer[sortField].toLowerCase();
+
+    if (firstValue < secondValue) {
+      return sortDirection === "asc" ? -1 : 1;
+    }
+
+    if (firstValue > secondValue) {
+      return sortDirection === "asc" ? 1 : -1;
+    }
+
+    return 0;
+  });
+}
+
 function CustomerList({ customers }: CustomerListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("All");
+  const [sortField, setSortField] = useState<SortField>("name");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch = customerMatchesSearch(customer, searchTerm);
@@ -65,9 +95,17 @@ function CustomerList({ customers }: CustomerListProps) {
     return matchesSearch && matchesStatus;
   });
 
+  const sortedCustomers = sortCustomers(
+    filteredCustomers,
+    sortField,
+    sortDirection,
+  );
+
   function clearFilters() {
     setSearchTerm("");
     setStatusFilter("All");
+    setSortField("name");
+    setSortDirection("asc");
   }
 
   return (
@@ -79,7 +117,7 @@ function CustomerList({ customers }: CustomerListProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-5 grid gap-3 md:grid-cols-[1fr_180px_auto]">
+        <div className="mb-5 grid gap-3 lg:grid-cols-[1fr_160px_160px_160px_auto]">
           <Input
             type="search"
             placeholder="Search by name, company, or email"
@@ -101,6 +139,29 @@ function CustomerList({ customers }: CustomerListProps) {
             ))}
           </select>
 
+          <select
+            value={sortField}
+            onChange={(event) => setSortField(event.target.value as SortField)}
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/40"
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                Sort: {option.label}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={sortDirection}
+            onChange={(event) =>
+              setSortDirection(event.target.value as SortDirection)
+            }
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/40"
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+
           <Button variant="outline" onClick={clearFilters}>
             Clear
           </Button>
@@ -116,7 +177,7 @@ function CustomerList({ customers }: CustomerListProps) {
         ) : (
           <>
             <div className="space-y-3 sm:hidden">
-              {filteredCustomers.map((customer) => (
+              {sortedCustomers.map((customer) => (
                 <div
                   key={customer.id}
                   className="rounded-md border border-border bg-muted/30 p-4"
@@ -171,7 +232,7 @@ function CustomerList({ customers }: CustomerListProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredCustomers.map((customer) => (
+                  {sortedCustomers.map((customer) => (
                     <TableRow key={customer.id}>
                       <TableCell className="min-w-44">
                         <div>
