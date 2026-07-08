@@ -1,24 +1,20 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { FaMoon, FaSun } from "react-icons/fa6";
 
 import { Button } from "@/components/ui/button";
 
 function ThemeToggle() {
-  function toggleTheme() {
-    const html = document.documentElement;
-    const nextTheme = html.classList.contains("dark") ? "light" : "dark";
-
-    html.classList.toggle("dark", nextTheme === "dark");
-    localStorage.setItem("theme", nextTheme);
-  }
+  const { resolvedTheme, setTheme } = useTheme();
+  const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
 
   return (
     <Button
       variant="ghost"
       size="icon"
       aria-label="Toggle theme"
-      onClick={toggleTheme}
+      onClick={() => setTheme(nextTheme)}
     >
       <FaMoon className="dark:hidden" />
       <FaSun className="hidden dark:block" />
