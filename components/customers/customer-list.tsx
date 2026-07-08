@@ -32,6 +32,7 @@ type SortField = "name" | "company" | "status";
 type SortDirection = "asc" | "desc";
 
 const statusOptions: StatusFilter[] = ["All", "Active", "Lead", "Inactive"];
+const customersPerPage = 10;
 const sortOptions: { label: string; value: SortField }[] = [
   { label: "Name", value: "name" },
   { label: "Company", value: "company" },
@@ -86,6 +87,7 @@ function CustomerList({ customers }: CustomerListProps) {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("All");
   const [sortField, setSortField] = useState<SortField>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredCustomers = customers.filter((customer) => {
     const matchesSearch = customerMatchesSearch(customer, searchTerm);
@@ -100,12 +102,34 @@ function CustomerList({ customers }: CustomerListProps) {
     sortField,
     sortDirection,
   );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(sortedCustomers.length / customersPerPage),
+  );
+  const firstCustomerIndex = (currentPage - 1) * customersPerPage;
+  const lastCustomerIndex = firstCustomerIndex + customersPerPage;
+  const paginatedCustomers = sortedCustomers.slice(
+    firstCustomerIndex,
+    lastCustomerIndex,
+  );
+  const visibleStart =
+    sortedCustomers.length === 0 ? 0 : firstCustomerIndex + 1;
+  const visibleEnd = Math.min(lastCustomerIndex, sortedCustomers.length);
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => Math.max(1, page - 1));
+  }
+
+  function goToNextPage() {
+    setCurrentPage((page) => Math.min(totalPages, page + 1));
+  }
 
   function clearFilters() {
     setSearchTerm("");
     setStatusFilter("All");
     setSortField("name");
     setSortDirection("asc");
+    setCurrentPage(1);
   }
 
   return (
@@ -122,14 +146,18 @@ function CustomerList({ customers }: CustomerListProps) {
             type="search"
             placeholder="Search by name, company, or email"
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+              setCurrentPage(1);
+            }}
           />
 
           <select
             value={statusFilter}
-            onChange={(event) =>
-              setStatusFilter(event.target.value as StatusFilter)
-            }
+            onChange={(event) => {
+              setStatusFilter(event.target.value as StatusFilter);
+              setCurrentPage(1);
+            }}
             className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/40"
           >
             {statusOptions.map((status) => (
@@ -141,7 +169,10 @@ function CustomerList({ customers }: CustomerListProps) {
 
           <select
             value={sortField}
-            onChange={(event) => setSortField(event.target.value as SortField)}
+            onChange={(event) => {
+              setSortField(event.target.value as SortField);
+              setCurrentPage(1);
+            }}
             className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/40"
           >
             {sortOptions.map((option) => (
@@ -153,9 +184,10 @@ function CustomerList({ customers }: CustomerListProps) {
 
           <select
             value={sortDirection}
-            onChange={(event) =>
-              setSortDirection(event.target.value as SortDirection)
-            }
+            onChange={(event) => {
+              setSortDirection(event.target.value as SortDirection);
+              setCurrentPage(1);
+            }}
             className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-ring focus:ring-2 focus:ring-ring/40"
           >
             <option value="asc">Ascending</option>
@@ -177,7 +209,7 @@ function CustomerList({ customers }: CustomerListProps) {
         ) : (
           <>
             <div className="space-y-3 sm:hidden">
-              {sortedCustomers.map((customer) => (
+              {paginatedCustomers.map((customer) => (
                 <div
                   key={customer.id}
                   className="rounded-md border border-border bg-muted/30 p-4"
@@ -232,7 +264,7 @@ function CustomerList({ customers }: CustomerListProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {sortedCustomers.map((customer) => (
+                  {paginatedCustomers.map((customer) => (
                     <TableRow key={customer.id}>
                       <TableCell className="min-w-44">
                         <div>
@@ -270,6 +302,32 @@ function CustomerList({ customers }: CustomerListProps) {
                   ))}
                 </TableBody>
               </Table>
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
+                Showing {visibleStart}-{visibleEnd} of {sortedCustomers.length}
+              </p>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  onClick={goToPreviousPage}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
           </>
         )}
