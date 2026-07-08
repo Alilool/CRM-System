@@ -1,5 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
+
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,18 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className="flex min-h-full flex-col">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              const theme = localStorage.getItem("theme");
-              const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-              if (theme === "dark" || (!theme && prefersDark)) {
-                document.documentElement.classList.add("dark");
-              }
-            `,
-          }}
-        />
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>
     </html>
