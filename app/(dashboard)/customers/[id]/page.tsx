@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { EmptyState } from "@/components/common/empty-state";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -215,9 +216,10 @@ export default async function CustomerDetailsPage({
           </CardHeader>
           <CardContent className="space-y-3">
             {customerDeals.length === 0 ? (
-              <p className="rounded-md border border-dashed border-border p-5 text-sm text-muted-foreground">
-                No deals are linked to this customer yet.
-              </p>
+              <EmptyState
+                title="No deals found"
+                description="No deals are linked to this customer yet."
+              />
             ) : (
               customerDeals.slice(0, 5).map((deal) => (
                 <div
@@ -250,9 +252,10 @@ export default async function CustomerDetailsPage({
           </CardHeader>
           <CardContent className="space-y-3">
             {customerTasks.length === 0 ? (
-              <p className="rounded-md border border-dashed border-border p-5 text-sm text-muted-foreground">
-                No tasks are linked to this customer yet.
-              </p>
+              <EmptyState
+                title="No tasks found"
+                description="No tasks are linked to this customer yet."
+              />
             ) : (
               customerTasks.slice(0, 5).map((task) => (
                 <div
@@ -285,9 +288,10 @@ export default async function CustomerDetailsPage({
           </CardHeader>
           <CardContent className="space-y-3">
             {customerActivities.length === 0 ? (
-              <p className="rounded-md border border-dashed border-border p-5 text-sm text-muted-foreground">
-                No recent activities are linked to this customer.
-              </p>
+              <EmptyState
+                title="No activities found"
+                description="No recent activities are linked to this customer."
+              />
             ) : (
               customerActivities.map((activity) => (
                 <div
@@ -316,9 +320,10 @@ export default async function CustomerDetailsPage({
           </CardHeader>
           <CardContent className="space-y-3">
             {customerNotes.length === 0 ? (
-              <p className="rounded-md border border-dashed border-border p-5 text-sm text-muted-foreground">
-                No notes are linked to this customer.
-              </p>
+              <EmptyState
+                title="No notes found"
+                description="No notes are linked to this customer."
+              />
             ) : (
               customerNotes.map((note) => (
                 <div

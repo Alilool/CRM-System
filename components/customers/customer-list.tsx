@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { EmptyState } from "@/components/common/empty-state";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -200,12 +201,10 @@ function CustomerList({ customers }: CustomerListProps) {
         </div>
 
         {filteredCustomers.length === 0 ? (
-          <div className="rounded-md border border-dashed border-border p-8 text-center">
-            <p className="font-medium">No customers found</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Try a different search term or status filter.
-            </p>
-          </div>
+          <EmptyState
+            title="No customers found"
+            description="Try a different search term or status filter."
+          />
         ) : (
           <>
             <div className="space-y-3 sm:hidden">
