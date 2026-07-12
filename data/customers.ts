@@ -12,6 +12,7 @@ const featuredCustomers: Customer[] = [
     company: "Acme Inc.",
     email: "sarah@acme.com",
     phone: "+1 555 120 4488",
+    agent: "Alex Morgan",
     status: "Active",
     jobTitle: "Operations Manager",
     location: "New York, USA",
@@ -23,6 +24,7 @@ const featuredCustomers: Customer[] = [
     company: "Globex",
     email: "daniel@globex.com",
     phone: "+1 555 884 1902",
+    agent: "Jamie Lee",
     status: "Lead",
     jobTitle: "Head of Sales",
     location: "Austin, USA",
@@ -34,6 +36,7 @@ const featuredCustomers: Customer[] = [
     company: "Northstar Labs",
     email: "maya@northstarlabs.com",
     phone: "+1 555 334 6721",
+    agent: "Nora Smith",
     status: "Active",
     jobTitle: "Product Director",
     location: "Seattle, USA",
@@ -45,6 +48,7 @@ const featuredCustomers: Customer[] = [
     company: "BrightPath",
     email: "omar@brightpath.com",
     phone: "+1 555 776 3014",
+    agent: "Alex Morgan",
     status: "Inactive",
     jobTitle: "Founder",
     location: "Chicago, USA",
@@ -56,6 +60,7 @@ const featuredCustomers: Customer[] = [
     company: "CloudNova",
     email: "emily@cloudnova.com",
     phone: "+1 555 492 1188",
+    agent: "Jamie Lee",
     status: "Active",
     jobTitle: "Finance Lead",
     location: "Denver, USA",
@@ -67,6 +72,7 @@ const featuredCustomers: Customer[] = [
     company: "UrbanGrid",
     email: "lucas@urbangrid.com",
     phone: "+1 555 208 6509",
+    agent: "Nora Smith",
     status: "Lead",
     jobTitle: "Business Developer",
     location: "Boston, USA",
@@ -165,6 +171,8 @@ const jobTitles = [
   "Product Manager",
 ];
 
+const agents = ["Alex Morgan", "Jamie Lee", "Nora Smith"];
+
 const locations = [
   "New York, USA",
   "Austin, USA",
@@ -210,6 +218,7 @@ function createGeneratedCustomers(count: number) {
       company,
       email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.toLowerCase()}.example`,
       phone: `+1 555 ${String(200 + index).padStart(3, "0")} ${String(1000 + index * 37).slice(0, 4)}`,
+      agent: pickItem(agents, index),
       status: pickItem(statuses, index),
       jobTitle: pickItem(jobTitles, index),
       location: pickItem(locations, index),

@@ -58,7 +58,8 @@ function customerMatchesSearch(customer: Customer, searchTerm: string) {
   return (
     customer.name.toLowerCase().includes(searchValue) ||
     customer.company.toLowerCase().includes(searchValue) ||
-    customer.email.toLowerCase().includes(searchValue)
+    customer.email.toLowerCase().includes(searchValue) ||
+    customer.agent.toLowerCase().includes(searchValue)
   );
 }
 
@@ -145,7 +146,7 @@ function CustomerList({ customers }: CustomerListProps) {
         <div className="mb-5 grid gap-3 lg:grid-cols-[1fr_160px_160px_160px_auto]">
           <Input
             type="search"
-            placeholder="Search by name, company, or email"
+            placeholder="Search by name, company, email, or agent"
             value={searchTerm}
             onChange={(event) => {
               setSearchTerm(event.target.value);
@@ -231,6 +232,10 @@ function CustomerList({ customers }: CustomerListProps) {
                       <span className="text-right">{customer.company}</span>
                     </div>
                     <div className="flex justify-between gap-4">
+                      <span className="text-muted-foreground">Agent</span>
+                      <span className="text-right">{customer.agent}</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground">Email</span>
                       <span className="text-right">{customer.email}</span>
                     </div>
@@ -256,6 +261,7 @@ function CustomerList({ customers }: CustomerListProps) {
                   <TableRow>
                     <TableHead className="min-w-44">Name</TableHead>
                     <TableHead className="min-w-36">Company</TableHead>
+                    <TableHead className="min-w-36">Agent</TableHead>
                     <TableHead className="min-w-52">Email</TableHead>
                     <TableHead className="min-w-40">Phone</TableHead>
                     <TableHead className="min-w-28">Status</TableHead>
@@ -277,6 +283,9 @@ function CustomerList({ customers }: CustomerListProps) {
                       </TableCell>
                       <TableCell className="min-w-36 whitespace-nowrap">
                         {customer.company}
+                      </TableCell>
+                      <TableCell className="min-w-36 whitespace-nowrap text-muted-foreground">
+                        {customer.agent}
                       </TableCell>
                       <TableCell className="min-w-52 whitespace-nowrap text-muted-foreground">
                         {customer.email}

@@ -106,14 +106,20 @@ export default async function CustomerDetailsPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 rounded-md border border-border bg-card p-5 shadow-sm lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-4 rounded-md border border-border bg-card p-5 shadow-sm">
         <div>
-          <Link
-            href="/customers"
-            className="mb-3 inline-flex text-sm font-medium text-primary hover:underline"
-          >
-            Back to customers
-          </Link>
+          <div className="flex items-center justify-between w-full">
+            <Link
+              href="/customers"
+              className="mb-2 inline-flex text-sm font-medium text-primary hover:underline"
+            >
+              Back to customers
+            </Link>
+            <p className="mb-2 text-xs text-muted-foreground lg:text-sm">
+              Managed by {customer.agent}
+            </p>
+          </div>
+
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-2xl font-semibold">{customer.name}</h2>
             <Badge variant={getCustomerStatusVariant(customer.status)}>
@@ -123,10 +129,9 @@ export default async function CustomerDetailsPage({
           <p className="mt-1 text-sm text-muted-foreground">
             {customer.jobTitle} at {customer.company}
           </p>
-        </div>
-
-        <div className="text-sm text-muted-foreground">
-          Joined {customer.joinedDate}
+          <p className="mt-2 text-sm text-muted-foreground">
+            Joined {customer.joinedDate}
+          </p>
         </div>
       </div>
 
@@ -148,6 +153,10 @@ export default async function CustomerDetailsPage({
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Location</span>
               <span className="text-right">{customer.location}</span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span className="text-muted-foreground">Agent</span>
+              <span className="text-right">{customer.agent}</span>
             </div>
           </CardContent>
         </Card>

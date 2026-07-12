@@ -14,6 +14,7 @@ export type Customer = {
   company: string;
   email: string;
   phone: string;
+  agent: string;
   status: CustomerStatus;
   jobTitle: string;
   location: string;
