@@ -23,10 +23,10 @@ function Navbar() {
   return (
     <>
       <header className="flex h-16 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur md:px-6">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm text-muted-foreground">Welcome back</p>
           {mounted ? (
-            <h1 className="text-lg font-semibold">
+            <h1 className="truncate text-lg font-semibold">
               {currentUser?.name ?? "CRM Dashboard"}
             </h1>
           ) : (

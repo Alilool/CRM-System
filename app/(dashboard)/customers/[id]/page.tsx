@@ -108,14 +108,14 @@ export default async function CustomerDetailsPage({
     <div className="space-y-6">
       <div className="flex flex-col gap-4 rounded-md border border-border bg-card p-5 shadow-sm">
         <div>
-          <div className="flex items-center justify-between w-full">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <Link
               href="/customers"
-              className="mb-2 inline-flex text-sm font-medium text-primary hover:underline"
+              className="inline-flex text-sm font-medium text-primary hover:underline"
             >
               Back to customers
             </Link>
-            <p className="mb-2 text-xs text-muted-foreground lg:text-sm">
+            <p className="text-xs text-muted-foreground lg:text-sm">
               Managed by {customer.agent}
             </p>
           </div>
@@ -144,7 +144,9 @@ export default async function CustomerDetailsPage({
           <CardContent className="space-y-3 text-sm">
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Email</span>
-              <span className="text-right">{customer.email}</span>
+              <span className="min-w-0 text-right break-all">
+                {customer.email}
+              </span>
             </div>
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Phone</span>
@@ -187,7 +189,7 @@ export default async function CustomerDetailsPage({
             </div>
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Website</span>
-              <span className="text-right">
+              <span className="min-w-0 text-right break-all">
                 {company?.website ?? "Unknown"}
               </span>
             </div>
@@ -236,8 +238,8 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
-                    <div>
-                      <p className="font-medium">{deal.title}</p>
+                    <div className="min-w-0">
+                      <p className="font-medium break-words">{deal.title}</p>
                       <p className="text-sm text-muted-foreground">
                         Closing {deal.closingDate}
                       </p>
@@ -272,7 +274,9 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
-                    <p className="font-medium">{task.title}</p>
+                    <p className="min-w-0 font-medium break-words">
+                      {task.title}
+                    </p>
                     <Badge variant={getTaskPriorityVariant(task.priority)}>
                       {task.priority}
                     </Badge>
@@ -308,7 +312,9 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
-                    <p className="font-medium">{activity.title}</p>
+                    <p className="min-w-0 font-medium break-words">
+                      {activity.title}
+                    </p>
                     <Badge variant="info">{activity.type}</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -340,7 +346,9 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-center justify-between gap-3">
-                    <p className="font-medium">{note.author}</p>
+                    <p className="min-w-0 font-medium break-words">
+                      {note.author}
+                    </p>
                     <p className="text-xs text-muted-foreground">{note.date}</p>
                   </div>
                   <p className="text-sm text-muted-foreground">

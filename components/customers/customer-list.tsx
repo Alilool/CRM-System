@@ -215,7 +215,7 @@ function CustomerList({ customers }: CustomerListProps) {
                   className="rounded-md border border-border bg-muted/30 p-4"
                 >
                   <div className="mb-3 flex items-start justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <p className="font-medium">{customer.name}</p>
                       <p className="text-sm text-muted-foreground">
                         {customer.jobTitle}
@@ -229,19 +229,27 @@ function CustomerList({ customers }: CustomerListProps) {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground">Company</span>
-                      <span className="text-right">{customer.company}</span>
+                      <span className="min-w-0 text-right break-words">
+                        {customer.company}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground">Agent</span>
-                      <span className="text-right">{customer.agent}</span>
+                      <span className="min-w-0 text-right break-words">
+                        {customer.agent}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground">Email</span>
-                      <span className="text-right">{customer.email}</span>
+                      <span className="min-w-0 text-right break-all">
+                        {customer.email}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="text-muted-foreground">Phone</span>
-                      <span className="text-right">{customer.phone}</span>
+                      <span className="min-w-0 text-right break-words">
+                        {customer.phone}
+                      </span>
                     </div>
                   </div>
 
@@ -317,7 +325,7 @@ function CustomerList({ customers }: CustomerListProps) {
                 Showing {visibleStart}-{visibleEnd} of {sortedCustomers.length}
               </p>
 
-              <div className="flex items-center gap-2">
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:flex">
                 <Button
                   variant="outline"
                   onClick={goToPreviousPage}
@@ -330,6 +338,7 @@ function CustomerList({ customers }: CustomerListProps) {
                 </span>
                 <Button
                   variant="outline"
+                  className="justify-self-end"
                   onClick={goToNextPage}
                   disabled={currentPage === totalPages}
                 >

@@ -56,7 +56,7 @@ export default function SettingsPage() {
           <div className="rounded-md border border-border bg-muted/30 p-4">
             <p className="text-sm text-muted-foreground">Email</p>
             {mounted ? (
-              <p className="mt-1 wrap-break-word font-medium">
+              <p className="mt-1 break-words font-medium">
                 {currentUser.email}
               </p>
             ) : (

@@ -64,7 +64,7 @@ function SettingsControls() {
                   }
                   className="mt-1 h-4 w-4"
                 />
-                <span>
+                <span className="min-w-0">
                   <span className="block text-sm font-medium">
                     Email notifications
                   </span>
@@ -83,7 +83,7 @@ function SettingsControls() {
                   }
                   className="mt-1 h-4 w-4"
                 />
-                <span>
+                <span className="min-w-0">
                   <span className="block text-sm font-medium">
                     Deal updates
                   </span>
@@ -102,7 +102,7 @@ function SettingsControls() {
                   }
                   className="mt-1 h-4 w-4"
                 />
-                <span>
+                <span className="min-w-0">
                   <span className="block text-sm font-medium">
                     Task reminders
                   </span>
