@@ -1,17 +1,37 @@
+"use client";
 import Link from "next/link";
 import { FaBell, FaMagnifyingGlass } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 
 import { navItems } from "@/components/layout/sidebar";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { LoadingSkeleton } from "@/components/common/loading-skeleton";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 function Navbar() {
+  const [mounted, setMounted] = useState(false);
+  const [currentUser] = useLocalStorage("currentUser", {
+    name: "CRM Dashboard",
+  });
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
   return (
     <>
       <header className="flex h-16 items-center justify-between border-b border-border bg-card/80 px-4 backdrop-blur md:px-6">
         <div>
           <p className="text-sm text-muted-foreground">Welcome back</p>
-          <h1 className="text-lg font-semibold">CRM Dashboard</h1>
+          {mounted ? (
+            <h1 className="text-lg font-semibold">
+              {currentUser?.name ?? "CRM Dashboard"}
+            </h1>
+          ) : (
+            <LoadingSkeleton className="h-5 w-32" />
+          )}
         </div>
 
         <div className="flex items-center gap-2">
