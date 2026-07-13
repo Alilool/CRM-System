@@ -1,39 +1,12 @@
-import Link from "next/link";
-
-import { Badge } from "@/components/ui/badge";
+import { TaskList } from "@/components/tasks/task-list";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { tasks } from "@/data/tasks";
-import type { TaskPriority, TaskStatus } from "@/types/task";
-
-function getPriorityVariant(priority: TaskPriority) {
-  if (priority === "High") {
-    return "danger";
-  }
-
-  if (priority === "Medium") {
-    return "warning";
-  }
-
-  return "secondary";
-}
-
-function getStatusVariant(status: TaskStatus) {
-  if (status === "Done") {
-    return "success";
-  }
-
-  if (status === "In Progress") {
-    return "info";
-  }
-
-  return "secondary";
-}
+import type { TaskStatus } from "@/types/task";
 
 function countTasksByStatus(status: TaskStatus) {
   return tasks.filter((task) => task.status === status).length;
@@ -92,56 +65,7 @@ export default function TasksPage() {
         </Card>
       </section>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Task List</CardTitle>
-          <CardDescription>
-            Showing {tasks.length} tasks from the mock CRM workspace.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-3 lg:grid-cols-2">
-            {tasks.map((task) => (
-              <div
-                key={task.id}
-                className="rounded-md border border-border bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
-              >
-                <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <p className="font-medium">{task.title}</p>
-                    {task.customerId && task.customerName ? (
-                      <Link
-                        href={`/customers/${task.customerId}`}
-                        className="mt-1 inline-flex text-sm font-medium text-primary hover:underline"
-                      >
-                        {task.customerName}
-                      </Link>
-                    ) : (
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Internal task
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 sm:justify-end">
-                    <Badge variant={getPriorityVariant(task.priority)}>
-                      {task.priority}
-                    </Badge>
-                    <Badge variant={getStatusVariant(task.status)}>
-                      {task.status}
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="flex justify-between gap-4 text-sm">
-                  <span className="text-muted-foreground">Due date</span>
-                  <span>{task.dueDate}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <TaskList tasks={tasks} />
     </div>
   );
 }
