@@ -108,7 +108,7 @@ export default function DealsPage() {
                         <span className="text-muted-foreground">Customer</span>
                         <Link
                           href={`/customers/${deal.customerId}`}
-                          className="font-medium text-primary break-words hover:underline sm:text-right"
+                          className="font-medium text-primary wrap-break-word hover:underline sm:text-right"
                         >
                           {deal.customerName}
                         </Link>

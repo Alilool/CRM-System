@@ -145,11 +145,11 @@ function TaskList({ tasks }: TaskListProps) {
               >
                 <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0">
-                    <p className="font-medium break-words">{task.title}</p>
+                    <p className="font-medium wrap-break-word">{task.title}</p>
                     {task.customerId && task.customerName ? (
                       <Link
                         href={`/customers/${task.customerId}`}
-                        className="mt-1 inline-flex text-sm font-medium text-primary break-words hover:underline"
+                        className="mt-1 inline-flex text-sm font-medium text-primary wrap-break-word hover:underline"
                       >
                         {task.customerName}
                       </Link>

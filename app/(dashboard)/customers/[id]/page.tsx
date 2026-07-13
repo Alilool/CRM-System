@@ -239,7 +239,9 @@ export default async function CustomerDetailsPage({
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="font-medium break-words">{deal.title}</p>
+                      <p className="font-medium wrap-break-word">
+                        {deal.title}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         Closing {deal.closingDate}
                       </p>
@@ -274,7 +276,7 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
-                    <p className="min-w-0 font-medium break-words">
+                    <p className="min-w-0 font-medium wrap-break-word">
                       {task.title}
                     </p>
                     <Badge variant={getTaskPriorityVariant(task.priority)}>
@@ -312,7 +314,7 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-start justify-between gap-3">
-                    <p className="min-w-0 font-medium break-words">
+                    <p className="min-w-0 font-medium wrap-break-word ">
                       {activity.title}
                     </p>
                     <Badge variant="info">{activity.type}</Badge>
@@ -346,7 +348,7 @@ export default async function CustomerDetailsPage({
                   className="rounded-md border border-border bg-muted/40 p-4"
                 >
                   <div className="mb-2 flex items-center justify-between gap-3">
-                    <p className="min-w-0 font-medium break-words">
+                    <p className="min-w-0 font-medium wrap-break-word">
                       {note.author}
                     </p>
                     <p className="text-xs text-muted-foreground">{note.date}</p>
