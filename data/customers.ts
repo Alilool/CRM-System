@@ -171,7 +171,14 @@ const jobTitles = [
   "Product Manager",
 ];
 
-const agents = ["Alex Morgan", "Jamie Lee", "Nora Smith"];
+const agents = [
+  "Alex Morgan",
+  "Jamie Lee",
+  "Nora Smith",
+  "Ali Elsayed",
+  "Samira Khan",
+  "David Chen",
+];
 
 const locations = [
   "New York, USA",
@@ -219,7 +226,7 @@ function createGeneratedCustomers(count: number) {
       email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.toLowerCase()}.example`,
       phone: `+1 555 ${String(200 + index).padStart(3, "0")} ${String(1000 + index * 37).slice(0, 4)}`,
       agent: pickItem(agents, index),
-      status: pickItem(statuses, index),
+      status: pickItem(statuses, index + Math.floor(index / agents.length)),
       jobTitle: pickItem(jobTitles, index),
       location: pickItem(locations, index),
       joinedDate: `2026-${String((index % 6) + 1).padStart(2, "0")}-${String((index % 25) + 1).padStart(2, "0")}`,
