@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import { FaBell, FaMagnifyingGlass } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
 import { navItems } from "@/components/layout/sidebar";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { Button } from "@/components/ui/button";
 import { LoadingSkeleton } from "@/components/common/loading-skeleton";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
@@ -34,21 +32,7 @@ function Navbar() {
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" aria-label="Search">
-            <FaMagnifyingGlass />
-          </Button>
-          <Button variant="ghost" size="icon" aria-label="Notifications">
-            <FaBell />
-          </Button>
-          <ThemeToggle />
-          <Link
-            href="/settings"
-            className="hidden rounded-md border border-border px-3 py-2 text-sm font-medium hover:bg-muted sm:block"
-          >
-            Profile
-          </Link>
-        </div>
+        <ThemeToggle />
       </header>
 
       <nav className="flex gap-2 overflow-x-auto border-b border-border bg-card/80 px-4 py-2 md:hidden">
