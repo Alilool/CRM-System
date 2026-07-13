@@ -11,7 +11,10 @@ function isAllowedUser(userToCheck: User) {
   return users.some(
     (user) =>
       user.id === userToCheck.id &&
-      user.email.toLowerCase() === userToCheck.email.toLowerCase(),
+      user.email.toLowerCase() === userToCheck.email.toLowerCase() &&
+      user.role === userToCheck.role &&
+      user.password === userToCheck.password &&
+      user.name === userToCheck.name,
   );
 }
 
