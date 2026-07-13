@@ -65,6 +65,7 @@ function LoginForm() {
       return;
     }
 
+    localStorage.setItem("currentUser", JSON.stringify(user));
     router.push("/dashboard");
   }
 
