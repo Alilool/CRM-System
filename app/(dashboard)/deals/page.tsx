@@ -71,41 +71,44 @@ export default function DealsPage() {
           const stageDeals = getDealsByStage(stage);
 
           return (
-            <Card key={stage} className="flex min-h-96 flex-col">
+            <Card
+              key={stage}
+              className="flex min-h-96 flex-col overflow-hidden"
+            >
               <CardHeader>
                 <div className="flex items-start justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <CardTitle>{stage}</CardTitle>
-                    <CardDescription>
-                      {stageDeals.length} deals
-                    </CardDescription>
+                    <CardDescription>{stageDeals.length} deals</CardDescription>
                   </div>
                   <Badge variant={getStageVariant(stage)}>{stage}</Badge>
                 </div>
-                <p className="pt-2 text-sm font-medium">
+                <p className="pt-2 text-sm font-medium text-foreground">
                   {formatCurrency(getStageValue(stageDeals))}
                 </p>
               </CardHeader>
 
-              <CardContent className="flex flex-1 flex-col gap-3">
+              <CardContent className="flex max-h-128 flex-1 flex-col gap-3 overflow-y-auto pr-3">
                 {stageDeals.map((deal) => (
                   <div
                     key={deal.id}
-                    className="rounded-md border border-border bg-muted/40 p-4 transition-colors hover:bg-muted/70"
+                    className="rounded-md border border-border bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
                   >
                     <div className="mb-3">
-                      <p className="font-medium">{deal.title}</p>
+                      <p className="text-sm font-medium leading-5">
+                        {deal.title}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {deal.company}
                       </p>
                     </div>
 
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between gap-4">
+                      <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
                         <span className="text-muted-foreground">Customer</span>
                         <Link
                           href={`/customers/${deal.customerId}`}
-                          className="text-right font-medium text-primary hover:underline"
+                          className="font-medium text-primary hover:underline sm:text-right"
                         >
                           {deal.customerName}
                         </Link>
