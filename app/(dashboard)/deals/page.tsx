@@ -104,7 +104,7 @@ export default function DealsPage() {
                     </div>
 
                     <div className="space-y-2 text-sm">
-                      <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
+                      <div className="flex justify-between gap-4">
                         <span className="text-muted-foreground">Customer</span>
                         <Link
                           href={`/customers/${deal.customerId}`}
