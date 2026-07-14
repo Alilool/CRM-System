@@ -197,13 +197,14 @@ export default function ReportsPage() {
             {agentReports.map((report) => (
               <div
                 key={report.agent}
-                className="rounded-md border border-border bg-muted/30 p-4"
+                className="rounded-md border border-border bg-muted/30 p-4 transition-colors hover:bg-muted/50"
               >
                 <div className="flex items-center justify-between gap-4">
                   <span className="font-medium">{report.agent}</span>
+                  <Badge variant="secondary">{report.customers}</Badge>
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  {report.activeCustomers} active customers
+                  {report.activeCustomers} active customers assigned
                 </p>
               </div>
             ))}

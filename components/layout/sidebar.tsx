@@ -27,7 +27,6 @@ const navItems: NavItem[] = [
 ];
 
 function isActivePath(pathname: string, href: string) {
-  console.log("pathname", pathname);
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 

@@ -60,7 +60,7 @@ function NotificationsPanel() {
       >
         <FaBell />
         {unreadCount > 0 && (
-          <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white">
+          <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold text-white">
             {unreadCount}
           </span>
         )}
@@ -92,7 +92,7 @@ function NotificationsPanel() {
               {notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className="rounded-md p-3 transition-colors hover:bg-muted"
+                  className="rounded-md border border-transparent p-3 transition-colors hover:border-border hover:bg-muted"
                 >
                   <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                     <p className="font-medium wrap-break-word">

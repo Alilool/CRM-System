@@ -53,7 +53,7 @@ function Navbar() {
               aria-current={isActive ? "page" : undefined}
               className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
                 isActive
-                  ? "bg-primary text-accent-foreground"
+                  ? "bg-primary text-navbar-active-foreground"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >

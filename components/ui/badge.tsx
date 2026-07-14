@@ -13,7 +13,7 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 };
 
 const baseClasses =
-  "inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium";
+  "inline-flex shrink-0 items-center rounded-md border px-2 py-0.5 text-xs font-medium";
 
 const variantClasses: Record<BadgeVariant, string> = {
   default: "border-transparent bg-primary text-primary-foreground",

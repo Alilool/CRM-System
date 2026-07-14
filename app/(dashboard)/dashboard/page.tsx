@@ -109,8 +109,8 @@ export default function DashboardPage() {
                 .slice(0, 5)
                 .map((task) => (
                   <div key={task.id} className="rounded-md bg-muted/60 p-3">
-                    <div className="mb-2 flex items-center justify-between gap-2">
-                      <p>{task.title}</p>
+                    <div className="mb-2 flex items-start justify-between gap-2">
+                      <p className="min-w-0 wrap-break-word">{task.title}</p>
                       <Badge variant={getPriorityVariant(task.priority)}>
                         {task.priority}
                       </Badge>
@@ -139,8 +139,10 @@ export default function DashboardPage() {
                 key={activity.id}
                 className="rounded-md border border-border bg-muted/40 p-4"
               >
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="font-medium">{activity.title}</p>
+                <div className="mb-2 flex items-start justify-between gap-3">
+                  <p className="min-w-0 font-medium wrap-break-word">
+                    {activity.title}
+                  </p>
                   <Badge variant="info">{activity.type}</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
