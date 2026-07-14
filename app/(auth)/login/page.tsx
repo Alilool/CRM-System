@@ -14,7 +14,7 @@ export default function LoginPage() {
       <div className="flex min-h-screen">
         <section className="hidden flex-1 bg-sidebar p-8 text-sidebar-foreground lg:flex lg:flex-col lg:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-sidebar-primary font-semibold text-sidebar-primary-foreground">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-sidebar-primary font-semibold text-white">
               C
             </div>
             <div>
