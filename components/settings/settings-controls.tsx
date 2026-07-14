@@ -1,6 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { LoadingSkeleton } from "@/components/common/loading-skeleton";
@@ -23,6 +24,7 @@ const themeOptions: { label: string; value: ThemeOption }[] = [
 ];
 
 function SettingsControls() {
+  const router = useRouter();
   const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [emailNotifications, setEmailNotifications] = useLocalStorage(
@@ -42,6 +44,11 @@ function SettingsControls() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
+  function handleLogout() {
+    localStorage.removeItem("currentUser");
+    router.replace("/login");
+  }
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
@@ -150,6 +157,20 @@ function SettingsControls() {
               </Button>
             ))}
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Account</CardTitle>
+          <CardDescription>
+            Sign out from this mock CRM account on this device.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button variant="danger" onClick={handleLogout}>
+            Logout
+          </Button>
         </CardContent>
       </Card>
     </div>
