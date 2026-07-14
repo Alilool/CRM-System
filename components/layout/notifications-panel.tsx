@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBell } from "react-icons/fa6";
 
 import { Badge } from "@/components/ui/badge";
@@ -21,17 +21,37 @@ function getNotificationVariant(type: NotificationType) {
 }
 
 function NotificationsPanel() {
+  const panelWrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const unreadCount = notifications.filter(
     (notification) => notification.isUnread,
   ).length;
+
+  useEffect(() => {
+    function closeWhenClickingOutside(event: MouseEvent) {
+      if (
+        panelWrapperRef.current &&
+        !panelWrapperRef.current.contains(event.target as Node)
+      ) {
+        closePanel();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", closeWhenClickingOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", closeWhenClickingOutside);
+    };
+  }, [isOpen]);
 
   function closePanel() {
     setIsOpen(false);
   }
 
   return (
-    <div className="relative">
+    <div ref={panelWrapperRef} className="relative">
       <Button
         variant="ghost"
         size="icon"
