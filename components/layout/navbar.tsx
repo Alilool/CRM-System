@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { navItems } from "@/components/layout/sidebar";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { LoadingSkeleton } from "@/components/common/loading-skeleton";
+import { NotificationsPanel } from "@/components/layout/notifications-panel";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
 function Navbar() {
@@ -32,7 +33,10 @@ function Navbar() {
           )}
         </div>
 
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <NotificationsPanel />
+          <ThemeToggle />
+        </div>
       </header>
 
       <nav className="flex gap-2 overflow-x-auto border-b border-border bg-card/80 px-4 py-2 md:hidden">
